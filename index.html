@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe blog</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/config.js" defer></script>
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <a href="index.html">Recipe blog</a>
+
+      <nav>
+        <a href="index.html">Recipes</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <form id="searchForm">
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Поиск рецептов..."
+          />
+          <button type="submit">Поиск</button>
+        </form>
+
+        <select id="filterSelect">
+          <option value="">Все</option>
+          <option value="easy">Легкий</option>
+          <option value="medium">Средний</option>
+          <option value="hard">Сложный</option>
+        </select>
+      </section>
+
+      <p id="queryStatus"></p>
+      <section id="recipesList"></section>
+
+      <div id="pagination"></div>
+    </main>
+
+    <footer>
+      <p>Recipe blog</p>
+    </footer>
+  </body>
+</html>
