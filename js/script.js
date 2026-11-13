@@ -81,7 +81,7 @@ function createRecipeItem(recipe) {
   rating.textContent = recipe.rating;
 
   const authorBlock = document.createElement("a");
-  const author = getRecipeAuthor(userId);
+  const author = getRecipeAuthor(recipe.userId);
   if (author) {
     authorBlock.href = `user.html?id=${author.id}`;
     authorBlock.target = "_blank";
@@ -106,6 +106,47 @@ function createRecipeItem(recipe) {
   return recipeCard;
 }
 
+function renderPagination() {
+  const totalPages = Math.ceil(totalRecipes / RECIPES_LIMIT); // 5.1 pages ~ 6
+
+  if (totalPages <= 1) {
+    return;
+  }
+
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "Назад";
+  prevBtn.disabled = currentPage === 1;
+
+  prevBtn.addEventListener("click", () => {
+    currentPage--; // -1
+    loadData();
+  });
+  pagination.append(prevBtn);
+
+  for (let page = 1; page <= totalPages; page++) {
+    const pageBtn = document.createElement("button");
+    pageBtn.textContent = page;
+    pageBtn.disabled = page === currentPage;
+
+    pageBtn.addEventListener("click", () => {
+      currentPage = page;
+      // current page = 1 -> click 5 -> current page = 5
+      loadData();
+    });
+    pagination.append(pageBtn);
+  }
+
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Вперед";
+  nextBtn.disabled = currentPage === totalPages;
+
+  nextBtn.addEventListener("click", () => {
+    currentPage++; // +1
+    loadData();
+  });
+  pagination.append(nextBtn);
+}
+
 function renderRecipes() {
   recipesList.replaceChildren();
   pagination.replaceChildren();
@@ -122,6 +163,7 @@ function renderRecipes() {
     const recipeCard = createRecipeItem(item);
     recipesList.append(recipeCard);
   });
+  renderPagination();
 }
 
 // Поиск рецептов
@@ -132,3 +174,5 @@ searchForm.addEventListener("submit", (event) => {
   currentPage = 1;
   loadData();
 });
+
+loadData();
